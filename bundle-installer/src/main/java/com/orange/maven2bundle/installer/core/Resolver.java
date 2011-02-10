@@ -43,6 +43,6 @@ public class Resolver {
 			
 		}
 		
-		return null;
+		return list;
 	}
 }

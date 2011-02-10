@@ -3,7 +3,6 @@ package com.orange.maven2bundle.installer.maven;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.maven.repository.internal.DefaultArtifactDescriptorReader;
 import org.apache.maven.repository.internal.DefaultServiceLocator;
