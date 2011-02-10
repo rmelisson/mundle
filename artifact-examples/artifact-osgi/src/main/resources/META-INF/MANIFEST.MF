@@ -1,0 +1,10 @@
+Export-Package: com.orange.maven2bundle.example.osgi;uses:="com.orange.maven2bundle.example.defaultartifact"
+Manifest-Version: 1.0
+Built-By: rmelisson
+Bundle-Name: artifact-osgi
+Created-By: 1.6.0_22 (Sun Microsystems Inc.)
+Bundle-Version: 0.0.1.SNAPSHOT
+Build-Jdk: 1.6.0_22
+Bnd-LastModified: 1297244182960
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: artifact-osgi
