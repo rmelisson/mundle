@@ -13,7 +13,7 @@ import org.osgi.framework.BundleException;
 import com.orange.maven2bundle.installer.exception.BndException;
 import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableException;
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
-import com.orange.maven2bundle.installer.osgi.MumbleOSGiManifest;
+import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
 import com.orange.maven2bundle.installer.osgi.OSGiManifest;
 import com.orange.maven2bundle.installer.test.Resources;
@@ -33,9 +33,9 @@ public class OSGiManifestTest {
 	public void testSimpleOSGiBundle() throws Exception{
 		File f = manifestFacilities.getMavenArtifactFile(Resources.ArtifactWithOSGiManifestCoordinates);
 		
-		OSGiManifest oM = (new OSGiFacilities(bundleContext)).getOSGiManifest(f);
+		MundleOSGiManifest oM = (new OSGiFacilities(bundleContext)).getOSGiManifest(f);
 		
-		assertFalse(oM instanceof MumbleOSGiManifest);
+		assertFalse(oM.hasBeenGenerated());
 		
 		assertTrue(oM.getImportPackages().size() == Resources.ArtifactWithOSGiManifestImportPackageNumber);
 		assertTrue(oM.getExportPackages().size()== Resources.ArtifactWithOSGiManifestExportPackageNumber);
@@ -46,9 +46,9 @@ public class OSGiManifestTest {
 	public void testMumbleManifest() throws MavenArtifactUnavailableException, IOException, BndException {
 		File f = manifestFacilities.getMavenArtifactFile(Resources.DefaultArtifactCoordinates);
 		
-		OSGiManifest oM = (new OSGiFacilities(bundleContext)).getOSGiManifest(f);
+		MundleOSGiManifest oM = (new OSGiFacilities(bundleContext)).getOSGiManifest(f);
 		
-		assertTrue(oM instanceof MumbleOSGiManifest);
+		assertTrue(oM.hasBeenGenerated());
 		assertTrue(oM.getImportPackages().size() == Resources.DefaultArtifactImportPackageNumber);
 		assertTrue(oM.getExportPackages().size()== Resources.DefaultArtifactExportPackageNumber);
 	}

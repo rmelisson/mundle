@@ -17,7 +17,7 @@ import com.orange.maven2bundle.installer.exception.BndException;
 import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableException;
 import com.orange.maven2bundle.installer.exception.UnresolvedDependencyException;
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
-import com.orange.maven2bundle.installer.osgi.MumbleOSGiManifest;
+import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
 import com.orange.maven2bundle.installer.osgi.OSGiManifest;
 import com.orange.maven2bundle.installer.test.Resources;
@@ -42,31 +42,27 @@ public class ResolverTest {
 	@Test
 	public void testInitRoot() throws MavenArtifactUnavailableException, IOException, BndException{
 		OSGiManifest manifest = resolver.createRootManifest(Resources.DefaultArtifactCoordinates);
-		assertTrue(manifest instanceof MumbleOSGiManifest);
-		assertTrue(((MumbleOSGiManifest) manifest).getArtifact().getGroupId().equals(Resources.GroupId));
+		assertTrue(manifest instanceof MundleOSGiManifest);
+		assertTrue(((MundleOSGiManifest) manifest).getArtifact().getGroupId().equals(Resources.GroupId));
 	}
 	
 	@Test
 	public void testInitRootOSGiArtifact() throws MavenArtifactUnavailableException, IOException, BndException{
-		OSGiManifest manifest = resolver.createRootManifest(Resources.ArtifactWithOSGiManifestCoordinates);
-		assertFalse(manifest instanceof MumbleOSGiManifest);
+		MundleOSGiManifest manifest = resolver.createRootManifest(Resources.ArtifactWithOSGiManifestCoordinates);
+		assertFalse(manifest.hasBeenGenerated());
 	}
 	
 	@Test
 	public void testResolveDefaultArtifact() throws MavenArtifactUnavailableException, IOException, BndException{
-		OSGiManifest rootManifest = resolver.createRootManifest(Resources.DefaultArtifactCoordinates);
+		MundleOSGiManifest rootManifest = resolver.createRootManifest(Resources.DefaultArtifactCoordinates);
 		assertNotNull(rootManifest);
 		try {
 			DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
-			//assertTrue(rootNode.getChild().size() == )			
+			assertTrue(rootNode.getDependencies().size() == 3);			
 		} catch (UnresolvedDependencyException e){
+			e.printStackTrace();
 			fail();
 		}
-//		assertNotNull(rootNode);
-		
-		
-		//List<OSGiManifest> list = resolver.resolveDependencies(rootManifest);
-//		assertTrue(dependencies.size() == 3);
 	}
 	
 }

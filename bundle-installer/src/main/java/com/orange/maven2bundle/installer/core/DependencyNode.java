@@ -1,12 +1,28 @@
 package com.orange.maven2bundle.installer.core;
 
-import com.orange.maven2bundle.installer.osgi.OSGiManifest;
+import java.util.ArrayList;
+
+import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 
 public class DependencyNode {
 
-	OSGiManifest manifest;
+	MundleOSGiManifest manifest;
+	private ArrayList<DependencyNode> dependencies;
 	
-	public DependencyNode(OSGiManifest manifest){
+	public DependencyNode(MundleOSGiManifest manifest){
 		this.manifest = manifest;
+		this.dependencies = new ArrayList<DependencyNode>();
+	}
+	
+	public MundleOSGiManifest getManifest(){
+		return this.manifest;
+	}
+	
+	public void append(DependencyNode node){
+		this.dependencies.add(node);
+	}
+	
+	public ArrayList<DependencyNode> getDependencies(){
+		return this.dependencies;
 	}
 }

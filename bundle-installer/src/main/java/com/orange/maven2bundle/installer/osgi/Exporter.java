@@ -1,5 +1,6 @@
 package com.orange.maven2bundle.installer.osgi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Exporter extends PackageManager {
@@ -13,7 +14,20 @@ public class Exporter extends PackageManager {
 	
 	// TODO no more use this hack
 	private void resolveUsesProblem(List<String> _exportPackages) {
+		
+		// we start by copying the list
+		ArrayList<String> repaired = new ArrayList<String>();
+		
+		// number of clauses to ignore
+		int p = 0;
+		
 		for (String clause : _exportPackages){
+			
+			if (p>0){
+				p--;
+				continue;
+			}
+			
 			// we try to join separated exports
 			if (clause.contains("uses")){
 				// we should assert that uses is closed
@@ -28,18 +42,24 @@ public class Exporter extends PackageManager {
 				if (_2 < 0){
 					String new_clause = clause;
 					int i = _exportPackages.indexOf(clause);
-					int j = i + 1;
-					while (!_exportPackages.get(j).contains("\"")){
+					int j = i;
+					while (!_exportPackages.get(++j).contains("\"")){
+						new_clause += ",";
 						new_clause += _exportPackages.get(j);
-						_exportPackages.remove(j);
+						p++;
 					}
+					new_clause += ",";
 					new_clause += _exportPackages.get(j);
-					_exportPackages.remove(j);
-					_exportPackages.remove(i);
-					_exportPackages.add(new_clause);
+					p++;
+					clause = new_clause;
 				}
 			}
+			
+			repaired.add(clause);
 		}
+		
+		// then we replace the old one by the new one
+		_exportPackages = repaired;
 	}
 
 }

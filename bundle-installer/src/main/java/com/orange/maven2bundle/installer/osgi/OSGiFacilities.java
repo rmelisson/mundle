@@ -59,12 +59,12 @@ public class OSGiFacilities {
 		
 	}
 
-	public OSGiManifest getOSGiManifest(File file) throws IOException, BndException {
+	public MundleOSGiManifest getOSGiManifest(File file) throws IOException, BndException {
 		
 		// an OSGi manifest maybe already available
 		JarFile jarFile = new JarFile(file);
 		if (this.hasOSGiManifest(jarFile)) {
-			return new OSGiManifest(jarFile.getManifest());
+			return new MundleOSGiManifest(jarFile.getManifest(), false);
 		}
 		else {
 			// if not, we use Bnd for generate it -> mundle
@@ -89,7 +89,7 @@ public class OSGiFacilities {
 			    	manifest.getMainAttributes().put( name , property.getValue());
 			    }
 				
-				return new MumbleOSGiManifest(manifest);
+				return new MundleOSGiManifest(manifest, true);
 			} catch (Exception e){
 				throw new BndException(e);
 			}

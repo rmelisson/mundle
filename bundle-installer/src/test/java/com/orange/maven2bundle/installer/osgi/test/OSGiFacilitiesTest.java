@@ -18,7 +18,7 @@ import org.osgi.framework.launch.Framework;
 
 import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableException;
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
-import com.orange.maven2bundle.installer.osgi.MumbleOSGiManifest;
+import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
 import com.orange.maven2bundle.installer.osgi.OSGiManifest;
 import com.orange.maven2bundle.installer.test.Resources;
@@ -57,13 +57,13 @@ public class OSGiFacilitiesTest {
 		
 		// Case of an artifact with no OSGi manifest
 		File f = manifestFacilities.getMavenArtifactFile(Resources.DefaultArtifactCoordinates);
-		OSGiManifest m = oSGiFacilities.getOSGiManifest(f);
-		assertTrue(m instanceof MumbleOSGiManifest);
+		MundleOSGiManifest m = oSGiFacilities.getOSGiManifest(f);
+		assertTrue(m.hasBeenGenerated());
 		
 		// Case of an artifact with an OSGi manifest		
 		f = manifestFacilities.getMavenArtifactFile(Resources.ArtifactWithOSGiManifestCoordinates);
 		m = oSGiFacilities.getOSGiManifest(f);
-		assertFalse(m instanceof MumbleOSGiManifest);
+		assertFalse(m.hasBeenGenerated());
 		
 		// Case of an artifact with no manifest at all
 		// TODO

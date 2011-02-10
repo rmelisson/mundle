@@ -129,6 +129,11 @@ public class MavenFacilities {
 		}
 	}
 	
+
+	public List<Dependency> getDependencies(Artifact artifact) throws MavenArtifactUnavailableException {
+		return this.getDependencies(artifact.toString());
+	}
+	
 	/**
 	 * Get the artifact which contains pom.xml informations
 	 * @param artifactCoordinates
@@ -137,5 +142,6 @@ public class MavenFacilities {
 	public Artifact getArtifact(String artifactCoordinates){
 		return this.getArtifactDescriptor(artifactCoordinates).getArtifact();
 	}
+
 	
 }
