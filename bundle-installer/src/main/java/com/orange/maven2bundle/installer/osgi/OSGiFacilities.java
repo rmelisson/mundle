@@ -2,6 +2,7 @@ package com.orange.maven2bundle.installer.osgi;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Map.Entry;
 import java.util.jar.Attributes;
@@ -20,11 +21,27 @@ import aQute.lib.osgi.Analyzer;
 public class OSGiFacilities {
 	
 	private BundleContext bundleContext; 
+	private HashSet<String> registredExports;
 
 	public OSGiFacilities(BundleContext bundleContext){
 		this.bundleContext = bundleContext;
+		initializeExportedPackageMap();
 	}
 	
+	private void initializeExportedPackageMap() {
+		registredExports = new HashSet<String>();
+		for (Bundle bundle : bundleContext.getBundles()){
+			registerExports(bundle);
+		}
+	}
+	
+	private void registerExports(Bundle bundle){
+		Exporter exporter = new Exporter((String) bundle.getHeaders().get("Export-Package"));
+		for (String export : exporter.exportPackages){
+			registredExports.add(export);
+		}
+	}
+
 	private boolean hasOSGiManifest(JarFile jarFile) throws IOException {
 		Manifest manifest = jarFile.getManifest();
 		if (manifest == null) {
@@ -79,9 +96,15 @@ public class OSGiFacilities {
 		}
 	}
 
-	public void addPackagesExporterBundle(File bundleFile) throws BundleException, IOException {
+	public void deployMundle(File bundleFile) throws BundleException, IOException {
 		String path = bundleFile.toURI().toString();
 		Bundle bundle = this.bundleContext.installBundle(path);
 		bundle.start();
+		registerExports(bundle);
 	}
+
+	public boolean isAvailable(String shouldBeAvailablePackage) {
+		return registredExports.contains(shouldBeAvailablePackage);
+	}
+
 }

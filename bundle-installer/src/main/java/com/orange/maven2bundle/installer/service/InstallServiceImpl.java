@@ -14,7 +14,7 @@ public class InstallServiceImpl implements InstallService {
 
 	public InstallServiceImpl(MavenFacilities mavenFacilities) {
 		this.mavenFacilities = mavenFacilities;
-		this.oSGiFacilities = new OSGiFacilities(null);
+//		this.oSGiFacilities = new OSGiFacilities(null);
 	}
 	
 	public void installMavenArtifactAsBundle(String artifactCoordinates)

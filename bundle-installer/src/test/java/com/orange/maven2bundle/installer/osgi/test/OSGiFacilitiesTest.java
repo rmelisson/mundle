@@ -2,9 +2,9 @@ package com.orange.maven2bundle.installer.osgi.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.felix.framework.FrameworkFactory;
@@ -29,19 +29,10 @@ public class OSGiFacilitiesTest {
 	private MavenFacilities manifestFacilities;
 	private BundleContext bundleContext;
 	private long frameworkBundle;
-	private final File cacheDirectory = new File(System.getProperty("java.io.tmpdir") + "/felix-cache");
 	
 	public OSGiFacilitiesTest() throws BundleException {
 		manifestFacilities = new MavenFacilities(Resources.testingRepositoryRootPath);	
-		
-		FrameworkFactory ff = new FrameworkFactory();
-		Properties configurationProperties = new Properties();
-		configurationProperties.setProperty(Constants.FRAMEWORK_STORAGE, cacheDirectory.getAbsolutePath());
-		
-		Framework fm = ff.newFramework(configurationProperties);
-		fm.init();
-		fm.start();
-		bundleContext = fm.getBundleContext();
+		bundleContext = Resources.initBundleTestingContext();
 	}
 	
 	@Before
@@ -56,7 +47,7 @@ public class OSGiFacilitiesTest {
 		}
 		
 		// and the Felix cache
-		cacheDirectory.delete();
+		Resources.cleanCache();
 		
 		oSGiFacilities = new OSGiFacilities(bundleContext);
 	}
@@ -77,14 +68,23 @@ public class OSGiFacilitiesTest {
 		// Case of an artifact with no manifest at all
 		// TODO
 	}
+
+	@Test
+	public void testAvailablePackages(){
+		assertTrue(oSGiFacilities.isAvailable(Resources.shouldBeAvailablePackage));
+		assertFalse(oSGiFacilities.isAvailable(Resources.shouldNotBeAvailablePackage));
+	}
 	
 	@Test
-	public void tryInstallBundle() throws BundleException, MavenArtifactUnavailableException, IOException{
+	public void testDeployMundle() throws MavenArtifactUnavailableException{
+		File file = manifestFacilities.getMavenArtifactFile(Resources.ArtifactWithOSGiManifestCoordinates);
+		try {
+			oSGiFacilities.deployMundle(file);
+			assertTrue(bundleContext.getBundles().length > 1);
+			assertTrue(oSGiFacilities.isAvailable(Resources.ArtifactWithOSGiManifestExportPackage));
+		} catch (Exception e) {
+			fail();
+		}
 		
-		File f = manifestFacilities.getMavenArtifactFile(Resources.ArtifactWithOSGiManifestCoordinates);
-		oSGiFacilities.addPackagesExporterBundle(f);
-		
-		assertTrue(bundleContext.getBundles().length > 1);
 	}
-
 }

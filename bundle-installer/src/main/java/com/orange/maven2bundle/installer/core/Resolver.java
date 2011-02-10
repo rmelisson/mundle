@@ -2,13 +2,12 @@ package com.orange.maven2bundle.installer.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.sonatype.aether.artifact.Artifact;
 
 import com.orange.maven2bundle.installer.exception.BndException;
 import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableException;
+import com.orange.maven2bundle.installer.exception.UnresolvedDependencyException;
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
 import com.orange.maven2bundle.installer.osgi.MumbleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
@@ -31,18 +30,24 @@ public class Resolver {
 			Artifact artifact = mavenFacilities.getArtifact(artifactcoordinates);
 			((MumbleOSGiManifest) manifest).setArtifact(artifact);
 		}
-		
 		return manifest;
 	}
-
+	
+		
+	public DependencyNode resolveDependencyTree(OSGiManifest rootManifest) throws UnresolvedDependencyException {
+		
+		return null;
+	}
+/*
 	public List<OSGiManifest> resolveDependencies(OSGiManifest manifest) {
 		
-		ArrayList<OSGiManifest> list = new ArrayList<OSGiManifest>(); 
+		ArrayList<OSGiManifest> manifestList = new ArrayList<OSGiManifest>(); 
 		
 		if (manifest instanceof MumbleOSGiManifest){
-			
+			 
 		}
 		
-		return list;
+		return manifestList;
 	}
+*/
 }
