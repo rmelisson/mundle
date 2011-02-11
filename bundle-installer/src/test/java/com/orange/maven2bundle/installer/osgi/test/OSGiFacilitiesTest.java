@@ -5,22 +5,17 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.Properties;
 
-import org.apache.felix.framework.FrameworkFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.framework.Constants;
-import org.osgi.framework.launch.Framework;
 
 import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableException;
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
 import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
-import com.orange.maven2bundle.installer.osgi.OSGiManifest;
 import com.orange.maven2bundle.installer.test.Resources;
 
 public class OSGiFacilitiesTest {

@@ -10,6 +10,7 @@ import org.sonatype.aether.artifact.Artifact;
 import org.sonatype.aether.graph.Dependency;
 
 import com.orange.maven2bundle.installer.exception.BndException;
+import com.orange.maven2bundle.installer.exception.DependencyNodeException;
 import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableException;
 import com.orange.maven2bundle.installer.exception.UnresolvedDependencyException;
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
@@ -44,7 +45,7 @@ public class Resolver {
 	}
 
 	public DependencyNode resolveDependencyTree(MundleOSGiManifest rootManifest)
-			throws UnresolvedDependencyException, MavenArtifactUnavailableException, IOException, BndException {
+			throws DependencyNodeException, MavenArtifactUnavailableException, IOException, BndException {
 
 		List<MundleOSGiManifest> mundleOSGiManifestList = null;
 		DependencyNode root = new DependencyNode(rootManifest);
@@ -57,20 +58,29 @@ public class Resolver {
 			// it means that it should possible to find this import in one of
 			// its maven dependencies
 			if (oSGIFacilities.isAvailable(importPackage)
-					|| inProgressExportedPackage.contains(importPackage)) {
+					|| inProgressExportedPackage.contains(importPackage)
+					|| shouldBeIgnored(importPackage)) {
 				continue;
 			} else {
 				if (mundleOSGiManifestList == null) {
 					mundleOSGiManifestList = constructOSGiManifestOfMavenDependencies(rootManifest.getArtifact());					
 				}
 				
-				// we try to resolve the dependency
-				MundleOSGiManifest dependencyManifest = getExporter(mundleOSGiManifestList, importPackage);
-				
-				// and of course, recursively...
-				DependencyNode node = resolveDependencyTree(dependencyManifest);
-				
-				root.append(node);
+				try {
+					// we try to resolve the dependency
+					MundleOSGiManifest dependencyManifest = getExporter(mundleOSGiManifestList, importPackage);
+					// and of course, recursively...
+					DependencyNode node = resolveDependencyTree(dependencyManifest);
+
+					root.append(node);
+				}
+				catch (UnresolvedDependencyException e){
+					DependencyNodeException dne = new DependencyNodeException(e);
+					dne.addNode(rootManifest.getArtifact().toString());
+					throw dne;
+				} catch (DependencyNodeException dne) {
+					dne.addNode(rootManifest.getArtifact().toString());
+				}
 			}
 
 			// in all case we remember this resolution for cyclic resolution
@@ -79,13 +89,25 @@ public class Resolver {
 		return root;
 	}
 	
+	//FIXME create a configuration file for ignored packages
+	private boolean shouldBeIgnored(String importPackage) {
+		return importPackage.equals("sun.misc") ||
+			importPackage.startsWith("javax");
+	}
+
 	public List<MundleOSGiManifest> constructOSGiManifestOfMavenDependencies(Artifact artifact) throws MavenArtifactUnavailableException, IOException, BndException{
 		List<MundleOSGiManifest> mundleOSGiManifest = new ArrayList<MundleOSGiManifest>();
 		List<Dependency> mavenDependencies = mavenFacilities.getDependencies(artifact);
 
 		for (Dependency dependency : mavenDependencies){
-			File file = mavenFacilities.getMavenArtifactFile(dependency.getArtifact().toString());
-			mundleOSGiManifest.add(oSGIFacilities.getOSGiManifest(file));
+			if (dependency.getScope().equals("test")){
+				continue;
+			}
+			String coordinates = dependency.getArtifact().toString();
+			File file = mavenFacilities.getMavenArtifactFile(coordinates);
+			MundleOSGiManifest manifest = oSGIFacilities.getOSGiManifest(file);
+			manifest.setArtifact(mavenFacilities.getArtifact(coordinates));
+			mundleOSGiManifest.add(manifest);
 		}
 		
 		return mundleOSGiManifest;
@@ -94,6 +116,7 @@ public class Resolver {
 	public MundleOSGiManifest getExporter(List<MundleOSGiManifest> manifestList, String importPackage) throws UnresolvedDependencyException{
 		for (MundleOSGiManifest manifest : manifestList){
 			if (manifest.export(importPackage)) {
+				inProgressExportedPackage.add(importPackage);
 				return manifest;
 			}
 		}

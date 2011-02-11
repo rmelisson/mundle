@@ -80,7 +80,7 @@ public class MavenFacilities {
 	private ArtifactDescriptorResult getArtifactDescriptor(String artifactCoordinates) throws IllegalArgumentException {
 		DefaultArtifact defaultArtifact = new DefaultArtifact(artifactCoordinates);			
 		ArtifactDescriptorRequest artifactDescriptorRequest = new ArtifactDescriptorRequest(defaultArtifact, null, null);
-		
+
 		try {
 			return repositorySystem.readArtifactDescriptor(
 					mavenRepositorySystemsession,
@@ -131,6 +131,10 @@ public class MavenFacilities {
 	
 
 	public List<Dependency> getDependencies(Artifact artifact) throws MavenArtifactUnavailableException {
+		return this.getDependencies(artifact.toString());
+	}
+	
+	public List<Dependency> getParentDependencies(Artifact artifact) throws MavenArtifactUnavailableException {
 		return this.getDependencies(artifact.toString());
 	}
 	

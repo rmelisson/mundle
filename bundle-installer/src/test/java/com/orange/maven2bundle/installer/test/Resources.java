@@ -39,6 +39,7 @@ public final class Resources {
 	private static String cachePath = System.getProperty("java.io.tmpdir") + "/felix-cache";
 	public static BundleContext initBundleTestingContext() throws BundleException{
 		File cacheDirectory = new File(cachePath);
+		
 		FrameworkFactory ff = new FrameworkFactory();
 		Properties configurationProperties = new Properties();
 		configurationProperties.setProperty(Constants.FRAMEWORK_STORAGE, cacheDirectory.getAbsolutePath());

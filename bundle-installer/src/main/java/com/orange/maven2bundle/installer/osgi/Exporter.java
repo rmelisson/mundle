@@ -8,12 +8,12 @@ public class Exporter extends PackageManager {
 	protected List<String> exportPackages;
 	
 	public Exporter(String exportPackages){
-		this.exportPackages = transformStringToPackageList(exportPackages);
-		resolveUsesProblem(this.exportPackages);
+		List<String> exportPackagesList = transformStringToPackageList(exportPackages);
+		this.exportPackages = resolveUsesProblem(exportPackagesList);
 	}
 	
 	// TODO no more use this hack
-	private void resolveUsesProblem(List<String> _exportPackages) {
+	private List<String> resolveUsesProblem(List<String> _exportPackages) {
 		
 		// we start by copying the list
 		ArrayList<String> repaired = new ArrayList<String>();
@@ -58,8 +58,7 @@ public class Exporter extends PackageManager {
 			repaired.add(clause);
 		}
 		
-		// then we replace the old one by the new one
-		_exportPackages = repaired;
+		return repaired;
 	}
 
 }
