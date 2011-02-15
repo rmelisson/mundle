@@ -3,6 +3,8 @@ package com.orange.maven2bundle.installer.osgi;
 import java.util.List;
 import java.util.jar.Manifest;
 
+import com.google.common.base.Joiner;
+
 public class OSGiManifest extends Exporter {
 
 	private Manifest manifest;
@@ -11,6 +13,9 @@ public class OSGiManifest extends Exporter {
 	public OSGiManifest(Manifest manifest){
 
 		super(manifest.getMainAttributes().getValue("Export-Package"));
+
+		String joinedExports = Joiner.on(", ").join(exportPackages);
+		manifest.getMainAttributes().putValue("Export-Package", joinedExports);
 		
 		// save a reference to the manifest
 		this.manifest = manifest;

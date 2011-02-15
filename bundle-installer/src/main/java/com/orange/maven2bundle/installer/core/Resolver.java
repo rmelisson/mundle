@@ -70,7 +70,7 @@ public class Resolver {
 					// we try to resolve the dependency
 					MundleOSGiManifest dependencyManifest = getExporter(mundleOSGiManifestList, importPackage);
 					// and of course, recursively...
-					DependencyNode node = resolveDependencyTree(dependencyManifest);
+					DependencyNode node	= resolveDependencyTree(dependencyManifest);
 
 					root.append(node);
 				}
@@ -84,6 +84,7 @@ public class Resolver {
 			}
 
 			// in all case we remember this resolution for cyclic resolution
+			inProgressExportedPackage.add(importPackage);
 		}
 
 		return root;
@@ -92,7 +93,8 @@ public class Resolver {
 	//FIXME create a configuration file for ignored packages
 	private boolean shouldBeIgnored(String importPackage) {
 		return importPackage.equals("sun.misc") ||
-			importPackage.startsWith("javax");
+			importPackage.startsWith("javax") || 
+			importPackage.equals("org.osgi.framework");
 	}
 
 	public List<MundleOSGiManifest> constructOSGiManifestOfMavenDependencies(Artifact artifact) throws MavenArtifactUnavailableException, IOException, BndException{

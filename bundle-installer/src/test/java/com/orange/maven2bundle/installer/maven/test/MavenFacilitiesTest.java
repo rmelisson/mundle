@@ -100,6 +100,12 @@ public class MavenFacilitiesTest {
 		}
 	}
 	
+	@Test
+	public void printer() throws MavenArtifactUnavailableException{
+		File f = mavenFacilities.getMavenArtifactFile("org.eclipse.emf.ecore:xmi:2.4.0");
+		System.out.println(f.getAbsolutePath());
+	}
+	
 	/*
 	public void blabla() throws Exception {
 		File f = mavenFacilities.getMavenArtifactFile(Resources.ArtifactWithOSGiManifestCoordinates);

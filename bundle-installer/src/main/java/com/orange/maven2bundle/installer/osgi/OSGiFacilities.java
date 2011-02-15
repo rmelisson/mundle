@@ -3,26 +3,26 @@ package com.orange.maven2bundle.installer.osgi;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.jar.Attributes;
+import java.util.jar.Attributes.Name;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
-import java.util.jar.Attributes.Name;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
-import com.orange.maven2bundle.installer.exception.BndException;
-
 import aQute.lib.osgi.Analyzer;
+
+import com.orange.maven2bundle.installer.exception.BndException;
 
 public class OSGiFacilities {
 	
 	private BundleContext bundleContext; 
 	private HashSet<String> registredExports;
-
+	
 	public OSGiFacilities(BundleContext bundleContext){
 		this.bundleContext = bundleContext;
 		initializeExportedPackageMap();
@@ -88,7 +88,10 @@ public class OSGiFacilities {
 			    	Name name = new Name( (String) property.getKey());
 			    	manifest.getMainAttributes().put( name , property.getValue());
 			    }
-				
+			    
+			    // we also put the File path as a bundle-classpath  
+			    manifest.getMainAttributes().putValue("Bundle-Classpath", file.getAbsolutePath());
+			    
 				return new MundleOSGiManifest(manifest, true);
 			} catch (Exception e){
 				throw new BndException(e);
@@ -103,8 +106,16 @@ public class OSGiFacilities {
 		registerExports(bundle);
 	}
 
-	public boolean isAvailable(String shouldBeAvailablePackage) {
-		return registredExports.contains(shouldBeAvailablePackage);
+	public boolean isAvailable(String neededPackage) {
+		// FIXME we don't use version... we only check start with at now
+		// we need a better structure for exports
+		for (String export : registredExports){
+			if (export.startsWith(neededPackage)) {
+				return true;
+			}
+		}
+		return false;
+//		return registredExports.contains(neededPackage);
 	}
 
 }

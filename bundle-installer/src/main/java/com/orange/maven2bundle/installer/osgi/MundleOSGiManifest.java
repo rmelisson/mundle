@@ -14,8 +14,14 @@ public class MundleOSGiManifest extends OSGiManifest {
 		this.hasBeenGenerated = hasBeenGenerated;
 	}
 
+	// FIXME should be in the constructor
 	public void setArtifact(Artifact artifact) {
 		this.artifact= artifact;
+		this.getManifest().getMainAttributes().putValue("Bundle-SymbolicName", artifact.getArtifactId()+"-"+artifact.getBaseVersion());
+	}
+	
+	public String getSymbolicName(){
+		return this.getManifest().getMainAttributes().getValue("Bundle-SymbolicName");
 	}
 	
 	public Artifact getArtifact(){

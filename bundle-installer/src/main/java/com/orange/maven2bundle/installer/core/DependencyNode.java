@@ -19,7 +19,18 @@ public class DependencyNode {
 	}
 	
 	public void append(DependencyNode node){
-		this.dependencies.add(node);
+		if ( ! isAlreadyHere(node)) {
+			this.dependencies.add(node);
+		}
+	}
+	
+	private boolean isAlreadyHere(DependencyNode node){
+		for (DependencyNode dN : dependencies){
+			if (dN.getManifest().getSymbolicName().equals(node.getManifest().getSymbolicName())){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public ArrayList<DependencyNode> getDependencies(){
