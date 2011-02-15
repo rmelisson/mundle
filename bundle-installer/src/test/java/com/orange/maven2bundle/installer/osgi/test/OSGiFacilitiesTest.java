@@ -8,7 +8,6 @@ import java.io.File;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
@@ -23,7 +22,6 @@ public class OSGiFacilitiesTest {
 	private OSGiFacilities oSGiFacilities;
 	private MavenFacilities manifestFacilities;
 	private BundleContext bundleContext;
-	private long frameworkBundle;
 	
 	public OSGiFacilitiesTest() throws BundleException {
 		manifestFacilities = new MavenFacilities(Resources.testingRepositoryRootPath);	
@@ -32,18 +30,8 @@ public class OSGiFacilitiesTest {
 	
 	@Before
 	public void initOSGiFacilities() throws BundleException {
-		
-		// we remove all bundle 
-		for (Bundle bundle : bundleContext.getBundles()){
-			if ( ! (bundle.getBundleId() == frameworkBundle) ) {
-				bundle.stop();
-				bundle.uninstall();
-			}
-		}
-		
-		// and the Felix cache
-		Resources.cleanCache();
-		
+
+		Resources.cleanCache(bundleContext);
 		oSGiFacilities = new OSGiFacilities(bundleContext);
 	}
 	

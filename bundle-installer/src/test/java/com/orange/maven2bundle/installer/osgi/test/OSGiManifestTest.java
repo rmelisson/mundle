@@ -15,9 +15,7 @@ import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableExcep
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
 import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
-import com.orange.maven2bundle.installer.osgi.OSGiManifest;
 import com.orange.maven2bundle.installer.test.Resources;
-
 
 public class OSGiManifestTest {
 

@@ -84,6 +84,7 @@ public class Resolver {
 			}
 
 			// in all case we remember this resolution for cyclic resolution
+			// FIXME should we really do that ?
 			inProgressExportedPackage.add(importPackage);
 		}
 

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Properties;
 
 import org.apache.felix.framework.FrameworkFactory;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
@@ -50,7 +51,14 @@ public final class Resources {
 		return fm.getBundleContext();
 	}
 
-	public static void cleanCache() {
+	public static void cleanCache(BundleContext bundleContext) throws BundleException {
+		// we remove all bundle 
+		for (Bundle bundle : bundleContext.getBundles()){
+			if ( ! (bundle.getSymbolicName().equals("org.apache.felix.framework")) ) {
+				bundle.stop();
+				bundle.uninstall();
+			}
+		}
 		(new File(cachePath)).delete();
 	}
 }
