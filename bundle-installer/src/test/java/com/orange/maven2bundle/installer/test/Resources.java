@@ -20,7 +20,7 @@ public final class Resources {
 		
 	// artifact with dependencies
 	public final static String DefaultArtifactCoordinates = "com.orange.maven2bundle:artifact-default:0.0.1.SNAPSHOT";
-	public final static int DefaultArtifactImportPackageNumber = 3;
+	public final static int DefaultArtifactImportPackageNumber = 2;
 	public final static int DefaultArtifactExportPackageNumber = 1;
 	
 	// artifact with no dependencies

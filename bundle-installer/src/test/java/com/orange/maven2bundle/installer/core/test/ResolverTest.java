@@ -61,7 +61,7 @@ public class ResolverTest {
 			MundleOSGiManifest rootManifest = resolver.createRootManifest(Resources.DefaultArtifactCoordinates);
 			assertNotNull(rootManifest);
 			DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
-			assertTrue(rootNode.getDependencies().size() == 3);			
+			assertTrue(rootNode.getDependencies().size() == 2);			
 		} catch (MavenArtifactUnavailableException e){
 			e.printStackTrace();
 			fail();

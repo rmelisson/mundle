@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import com.google.common.io.Files;
+//import com.google.common.io.Files;
 
 public class DirectoryLimiter {
 
@@ -17,9 +17,9 @@ public class DirectoryLimiter {
 	
 	public void deleteIfTooBig(File directory) throws IOException{
 		long size = FileUtils.sizeOfDirectory(directory);
-		if (size > maximumSize){
-			Files.deleteRecursively(directory);
-		}
+//		if (size > maximumSize){
+//			Files.deleteRecursively(directory);
+//		}
 	}
 	
 }

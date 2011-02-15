@@ -1,43 +1,32 @@
 package com.orange.maven2bundle.installer.service;
 
-import java.io.File;
-
+import com.orange.maven2bundle.installer.core.DependencyNode;
+import com.orange.maven2bundle.installer.core.Deployer;
+import com.orange.maven2bundle.installer.core.Resolver;
 import com.orange.maven2bundle.installer.exception.ArtifactInstallationException;
-import com.orange.maven2bundle.installer.maven.MavenFacilities;
-import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
-import com.orange.maven2bundle.installer.osgi.OSGiManifest;
+import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
+import com.orange.maven2bundle.installer.test.Resources;
 
 public class InstallServiceImpl implements InstallService {
 		
-	private MavenFacilities mavenFacilities;
-	private OSGiFacilities oSGiFacilities;
+	private Resolver resolver;
+	private Deployer deployer;
 
-	public InstallServiceImpl(MavenFacilities mavenFacilities) {
-		this.mavenFacilities = mavenFacilities;
-//		this.oSGiFacilities = new OSGiFacilities(null);
+	public InstallServiceImpl(Resolver resolver, Deployer deployer) {
+		this.resolver = resolver;
+		this.deployer = deployer;
 	}
 	
 	public void installMavenArtifactAsBundle(String artifactCoordinates)
-			throws ArtifactInstallationException{
-		
+			throws ArtifactInstallationException {
 		try {
-			// we retrieve the artifact file
-			File artifactFile = mavenFacilities.getMavenArtifactFile(artifactCoordinates);
+			MundleOSGiManifest rootManifest = resolver.createRootManifest(Resources.DefaultArtifactCoordinates);
+			DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
+			deployer.installNode(rootNode);
 			
-			// then, the manifest
-			OSGiManifest manifest = oSGiFacilities.getOSGiManifest(artifactFile);
-					
-			// we check the non available import-package
-			
-			
-			// and try to find them into the maven dependencies
-			
-			// then we deploy the tree of OSGi manifest
-		
-		} catch (Exception e){
+		} catch (Exception e) {
 			throw new ArtifactInstallationException(e);
-		}
-				
+		}			
 	}
 
 }

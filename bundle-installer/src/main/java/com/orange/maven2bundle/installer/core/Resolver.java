@@ -93,7 +93,7 @@ public class Resolver {
 	
 	//FIXME create a configuration file for ignored packages
 	private boolean shouldBeIgnored(String importPackage) {
-		return importPackage.equals("sun.misc") ||
+		return importPackage.startsWith("sun.misc") ||
 			importPackage.startsWith("javax") || 
 			importPackage.equals("org.osgi.framework");
 	}
