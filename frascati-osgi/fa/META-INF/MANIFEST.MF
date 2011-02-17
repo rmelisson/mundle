@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Export-Package: org.ow2.frascati.assembly.factory.api, org.ow2.frasca
- ti.bootstrap,org.ow2.frascati
+Export-Package: org.ow2.frascati.assembly.factory.api,org.ow2.frascat
+ i.bootstrap,org.ow2.frascati
 Bundle-ClassPath: /lib/frascati-assembly-factory-1.4-SNAPSHOT.jar
 Built-By: remi
 Tool: Bnd-1.15.0

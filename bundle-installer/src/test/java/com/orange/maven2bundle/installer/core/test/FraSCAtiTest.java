@@ -61,16 +61,16 @@ public class FraSCAtiTest {
 		/*	DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
 			deployer.installNode(rootNode);
 			System.out.println(rootNode.getDependencies().size());*/
-			for (Bundle b : bundleContext.getBundles()){
-//				if (b.getSymbolicName().equals("frascati-util-1.4-SNAPSHOT")){
-				if (b.getSymbolicName().equals("frascati-assembly-factory-1.4-SNAPSHOT")){
-					System.out.println(b.getHeaders().get("Export-Package").toString());
-//					URL r = b.getResource("org.ow2.frascati.util.AbstractFractalLoggeable");
-					URL r = b.getResource("org.ow2.frascati.FraSCAti");
-					System.out.println(r.toString());
-				}
-				System.out.println(b.getSymbolicName());
-			}
+//			for (Bundle b : bundleContext.getBundles()){
+////				if (b.getSymbolicName().equals("frascati-util-1.4-SNAPSHOT")){
+//				if (b.getSymbolicName().equals("frascati-assembly-factory-1.4-SNAPSHOT")){
+//					System.out.println(b.getHeaders().get("Export-Package").toString());
+////					URL r = b.getResource("org.ow2.frascati.util.AbstractFractalLoggeable");
+//					URL r = b.getResource("org.ow2.frascati.FraSCAti");
+//					System.out.println(r.toString());
+//				}
+//				System.out.println(b.getSymbolicName());
+//			}
 			//assertTrue(rootNode.getDependencies().size() == 6);
 		} catch (BundleException e) {
 			e.printStackTrace();

@@ -41,19 +41,8 @@ public class DeployerTest {
 	@Test
 	public void testDeploy() {
 		try {
-//			String apa = "org.apache.commons:commons-io:1.3.2";
-//			installService.installMavenArtifactAsBundle(apa);
-			
-//			installService.installMavenArtifactAsBundle(Resources.ArtifactWithOSGiManifestCoordinates);
-			
-//			File df = new File("/tmp/artifact-default-0.0.1.SNAPSHOT/artifact-default-0.0.1.SNAPSHOT.jar");
-//			oSGiFacilities.deployMundle(new File("/tmp/ad.jar"));
-//			installService.installMavenArtifactAsBundle(Resources.DefaultArtifactCoordinates);
-			
-//			File file = new File("/home/remi/dev/osgi/workspace/maven2bundle/artifact-examples/artifact-activator/target/artifact-activator-0.0.1.SNAPSHOT.jar");
-//			oSGiFacilities.deployMundle(file);
 			installService.installMavenArtifactAsBundle(Resources.ArtifactWithActivatorManifestCoordinates);
-			assertTrue(bundleContext.getBundles().length == 4);
+			assertTrue(bundleContext.getBundles().length == 5);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
