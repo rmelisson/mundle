@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.codehaus.plexus.interpolation.os.Os;
 import org.osgi.framework.BundleException;
 
 import com.google.common.io.Files;
@@ -31,7 +30,7 @@ public class Deployer {
 		oSGiFacilities.deployMundle(f);
 	}
 	
-	public File createMumbleJar(MundleOSGiManifest manifest) throws IOException{
+	private File createMumbleJar(MundleOSGiManifest manifest) throws IOException{
 		String dirPath = ( System.getProperty("java.io.tmpdir")) + 
 			File.separator + manifest.getSymbolicName() + File.separator;
 		String filePath = dirPath + 
@@ -50,7 +49,7 @@ public class Deployer {
 		return jar;
 	}
 	
-	public File createJar(String jarPath, File manifest) throws IOException {
+	private File createJar(String jarPath, File manifest) throws IOException {
 		
 		File jarFile = new File(jarPath);
 		

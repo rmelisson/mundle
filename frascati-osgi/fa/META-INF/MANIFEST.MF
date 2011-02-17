@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Export-Package: org.ow2.frascati.assembly.factory.api, org.ow2.frasca
+ ti.bootstrap,org.ow2.frascati
+Bundle-Classpath: /home/remi/.m2/repository/org/ow2/frascati/frascati-
+ assembly-factory/1.4-SNAPSHOT/frascati-assembly-factory-1.4-SNAPSHOT.
+ jar
+Built-By: remi
+Tool: Bnd-1.15.0
+Bundle-Name: bundle-installer
+Created-By: 1.6.0_22 (Sun Microsystems Inc.)
+Bundle-Version: 0
+Build-Jdk: 1.6.0_22
+Bnd-LastModified: 1297874912152
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: frascati-assembly-factory-1.4-SNAPSHOT
+Import-Package: javax.xml.datatype,javax.xml.namespace,org.eclipse.emf
+ .common.util,org.eclipse.emf.ecore,org.eclipse.stp.sca,org.oasisopen.
+ sca,org.objectweb.fractal.api,org.objectweb.fractal.api.control,org.o
+ bjectweb.fractal.api.factory,org.objectweb.fractal.api.type,org.objec
+ tweb.fractal.julia,org.objectweb.fractal.julia.factory,org.objectweb.
+ fractal.julia.type,org.objectweb.fractal.juliac.runtime,org.objectweb
+ .fractal.util,org.osgi.framework,org.osoa.sca.annotations,org.ow2.fra
+ scati.component.factory.api,org.ow2.frascati.component.factory.impl,o
+ rg.ow2.frascati.component.factory.tinfi.oo,org.ow2.frascati.parser.ap
+ i,org.ow2.frascati.parser.core,org.ow2.frascati.parser.metamodel,org.
+ ow2.frascati.parser.resolver,org.ow2.frascati.tinfi,org.ow2.frascati.
+ tinfi.api,org.ow2.frascati.tinfi.api.control,org.ow2.frascati.tinfi.o
+ asis,org.ow2.frascati.util
+Originally-Created-By: Apache Maven
+Archiver-Version: Plexus Archiver
+

@@ -1,5 +1,6 @@
 #Java
 target/
+*.jar
 
 #Eclipse
 .classpath

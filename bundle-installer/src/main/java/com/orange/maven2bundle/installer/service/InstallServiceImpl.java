@@ -20,7 +20,7 @@ public class InstallServiceImpl implements InstallService {
 	public void installMavenArtifactAsBundle(String artifactCoordinates)
 			throws ArtifactInstallationException {
 		try {
-			MundleOSGiManifest rootManifest = resolver.createRootManifest(Resources.DefaultArtifactCoordinates);
+			MundleOSGiManifest rootManifest = resolver.createRootManifest(artifactCoordinates);
 			DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
 			deployer.installNode(rootNode);
 			

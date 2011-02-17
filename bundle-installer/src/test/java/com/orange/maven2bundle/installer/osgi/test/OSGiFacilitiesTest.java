@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,8 +30,7 @@ public class OSGiFacilitiesTest {
 	}
 	
 	@Before
-	public void initOSGiFacilities() throws BundleException {
-
+	public void initOSGiFacilities() throws BundleException, IOException {
 		Resources.cleanCache(bundleContext);
 		oSGiFacilities = new OSGiFacilities(bundleContext);
 	}

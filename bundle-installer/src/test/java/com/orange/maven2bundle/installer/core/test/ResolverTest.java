@@ -37,7 +37,7 @@ public class ResolverTest {
 	}
 	
 	@Before
-	public void reinitResolver() throws BundleException{
+	public void reinitResolver() throws BundleException, IOException{
 		Resources.cleanCache(bundleContext);
 		this.resolver = new Resolver(mavenFacilities, oSGiFacilities);
 	}

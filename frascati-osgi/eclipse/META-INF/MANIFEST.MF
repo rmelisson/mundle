@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Export-Package: org.eclipse.core.resources,org.eclipse.core.runtime,or
+ g.eclipse.emf.common.notify,org.eclipse.emf.common.notify.impl,org.ec
+ lipse.emf.common.util,org.eclipse.emf.ecore,org.eclipse.emf.ecore.imp
+ l,org.eclipse.emf.ecore.plugin,org.eclipse.emf.ecore.resource,org.ecl
+ ipse.emf.ecore.resource.impl,org.eclipse.emf.ecore.util,org.eclipse.e
+ mf.ecore.xmi,org.eclipse.emf.ecore.xmi.impl,org.eclipse.emf.ecore.xmi
+ .util,org.eclipse.emf.ecore.xml.type,org.eclipse.emf.ecore.xml.type.u
+ til,org.eclipse.osgi.util
+Bundle-ActivationPolicy: lazy
+Bundle-Classpath: /home/remi/.m2/repository/org/eclipse/equinox/common
+ /3.4.0/common-3.4.0.jar,/home/remi/.m2/repository/org/eclipse/equinox
+ /common/3.4.0/common-3.4.0.jar,/home/remi/.m2/repository/org/eclipse/
+ emf/common/2.4.0/common-2.4.0.jar,/home/remi/.m2/repository/org/eclip
+ se/emf/ecore/2.4.0/ecore-2.4.0.jar,/home/remi/.m2/repository/org/ecli
+ pse/emf/ecore/xmi/2.4.0/xmi-2.4.0.jar
+Tool: Bnd-1.15.0
+Bundle-Localization: plugin
+Bundle-Name: eclipse
+Created-By: 1.6.0_22 (Sun Microsystems Inc.)
+Bundle-RequiredExecutionEnvironment: CDC-1.0/Foundation-1.0,J2SE-1.3
+DynamicImport-Package: org.eclipse.core.internal.runtime.auth
+Bundle-Vendor: %providerName
+Bundle-Version: 0
+Bnd-LastModified: 1297678338701
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: eclipse

@@ -2,7 +2,7 @@ package com.orange.maven2bundle.installer.osgi;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.jar.Attributes;
@@ -21,7 +21,7 @@ import com.orange.maven2bundle.installer.exception.BndException;
 public class OSGiFacilities {
 	
 	private BundleContext bundleContext; 
-	private HashSet<String> registredExports;
+	private ArrayList<String> registredExports;
 	
 	public OSGiFacilities(BundleContext bundleContext){
 		this.bundleContext = bundleContext;
@@ -29,7 +29,7 @@ public class OSGiFacilities {
 	}
 	
 	private void initializeExportedPackageMap() {
-		registredExports = new HashSet<String>();
+		registredExports = new ArrayList<String>();
 		for (Bundle bundle : bundleContext.getBundles()){
 			registerExports(bundle);
 		}
@@ -38,6 +38,10 @@ public class OSGiFacilities {
 	private void registerExports(Bundle bundle){
 		Exporter exporter = new Exporter((String) bundle.getHeaders().get("Export-Package"));
 		for (String export : exporter.exportPackages){
+			//FIXME it might be a bug which introduce a blank character, but where ?
+			if (export.startsWith(" ")) {
+				export = export.substring(1);
+			}
 			registredExports.add(export);
 		}
 	}

@@ -49,7 +49,6 @@ public class Resolver {
 
 		List<MundleOSGiManifest> mundleOSGiManifestList = null;
 		DependencyNode root = new DependencyNode(rootManifest);
-
 		// for every import package dependency
 		for (String importPackage : rootManifest.getImportPackages()) {
 

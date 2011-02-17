@@ -1,6 +1,7 @@
 package com.orange.maven2bundle.installer.test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.felix.framework.FrameworkFactory;
@@ -9,6 +10,8 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.launch.Framework;
+
+import com.google.common.io.Files;
 
 public final class Resources {
 	
@@ -51,7 +54,7 @@ public final class Resources {
 		return fm.getBundleContext();
 	}
 
-	public static void cleanCache(BundleContext bundleContext) throws BundleException {
+	public static void cleanCache(BundleContext bundleContext) throws BundleException, IOException {
 		// we remove all bundle 
 		for (Bundle bundle : bundleContext.getBundles()){
 			if ( ! (bundle.getSymbolicName().equals("org.apache.felix.framework")) ) {
@@ -59,6 +62,6 @@ public final class Resources {
 				bundle.uninstall();
 			}
 		}
-		(new File(cachePath)).delete();
+		Files.deleteDirectoryContents(new File(cachePath));
 	}
 }
