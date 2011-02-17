@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Export-Package: com.orange.maven2bundle.example.activator;uses:="com.o
+ range.maven2bundle.example.defaultartifact,org.osgi.framework"
+Built-By: remi
+Tool: Bnd-1.15.0
+Bundle-Name: Unnamed - com.orange.maven2bundle:artifact-activator:bund
+ le:0.0.1.SNAPSHOT
+Bundle-ClassPath: lib/artifact-activator-0.0.1.SNAPSHOT.jar
+Created-By: Apache Maven Bundle Plugin
+Bundle-Version: 0.0.1.SNAPSHOT
+Build-Jdk: 1.6.0_22
+Bnd-LastModified: 1297950202881
+Bundle-ManifestVersion: 2
+Bundle-Activator: com.orange.maven2bundle.example.activator.Activator
+Import-Package: com.orange.maven2bundle.example.defaultartifact,org.os
+ gi.framework;
+Bundle-SymbolicName: com.orange.maven2bundle.artifact-activator

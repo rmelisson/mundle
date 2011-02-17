@@ -13,5 +13,6 @@
   <modules>
   	<module>artifact-default</module>
   	<module>artifact-osgi</module>
+  	<module>artifact-activator</module>
   </modules>
 </project>

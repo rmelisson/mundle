@@ -5,9 +5,8 @@ Export-Package: org.ow2.frascati.component.factory.tinfi.oo;uses:="org
  ati.component.factory.api,juliac.generated,org.objectweb.fractal.api.
  type,org.objectweb.fractal.api.factory,org.ow2.frascati.tinfi,org.obj
  ectweb.fractal.julia.type,org.objectweb.fractal.julia"
-Bundle-Classpath: /home/remi/.m2/repository/org/ow2/frascati/frascati-
- component-factory-tinfi-oo/1.4-SNAPSHOT/frascati-component-factory-ti
- nfi-oo-1.4-SNAPSHOT.jar
+Bundle-ClassPath: lib/frascati-component-factory-tinfi-oo-1.4-SNAPSHOT
+ .jar
 Built-By: remi
 Tool: Bnd-1.15.0
 Bundle-Name: bundle-installer

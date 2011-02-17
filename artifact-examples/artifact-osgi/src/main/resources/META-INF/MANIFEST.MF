@@ -8,3 +8,4 @@ Build-Jdk: 1.6.0_22
 Bnd-LastModified: 1297244182960
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: artifact-osgi
+Bundle-ClassPath: lib/artifact-osgi-0.0.1.SNAPSHOT.jar

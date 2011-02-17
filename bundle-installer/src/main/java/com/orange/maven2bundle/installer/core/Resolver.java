@@ -39,7 +39,7 @@ public class Resolver {
 		if (manifest instanceof MundleOSGiManifest) {
 			Artifact artifact = mavenFacilities
 					.getArtifact(artifactcoordinates);
-			((MundleOSGiManifest) manifest).setArtifact(artifact);
+			((MundleOSGiManifest) manifest).setArtifact(artifact, artifactFile);
 		}
 		return manifest;
 	}
@@ -108,7 +108,7 @@ public class Resolver {
 			String coordinates = dependency.getArtifact().toString();
 			File file = mavenFacilities.getMavenArtifactFile(coordinates);
 			MundleOSGiManifest manifest = oSGIFacilities.getOSGiManifest(file);
-			manifest.setArtifact(mavenFacilities.getArtifact(coordinates));
+			manifest.setArtifact(mavenFacilities.getArtifact(coordinates), file);
 			mundleOSGiManifest.add(manifest);
 		}
 		

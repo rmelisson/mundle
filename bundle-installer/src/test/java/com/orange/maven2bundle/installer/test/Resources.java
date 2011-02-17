@@ -34,6 +34,9 @@ public final class Resources {
 	public final static String ArtifactWithOSGiManifestExportPackage = "com.orange.maven2bundle.example.osgi;uses:=\"com.orange.maven2bundle.example.defaultartifact\"";
 	public final static int ArtifactWithOSGiManifestImportPackageNumber = 0;
 	public final static int ArtifactWithOSGiManifestExportPackageNumber = 1;
+	
+	// artifact with activator
+	public final static String ArtifactWithActivatorManifestCoordinates = "com.orange.maven2bundle:artifact-activator:0.0.1.SNAPSHOT";
 
 	public static final Object GroupId = "com.orange.maven2bundle";
 	

@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>artifact-examples</artifactId>
+		<groupId>com.orange.maven2bundle</groupId>
+		<version>0.0.1.SNAPSHOT</version>
+	</parent>
+	<groupId>com.orange.maven2bundle</groupId>
+	<artifactId>artifact-activator</artifactId>
+	<version>0.0.1.SNAPSHOT</version>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.orange.maven2bundle</groupId>
+			<artifactId>artifact-default</artifactId>
+			<version>0.0.1.SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+
+		<plugins>
+			<!-- 
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Activator>com.orange.maven2bundle.example.activator.Activator</Bundle-Activator>
+					</instructions>
+				</configuration>
+			</plugin>
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+		 
+	</build>
+
+</project>

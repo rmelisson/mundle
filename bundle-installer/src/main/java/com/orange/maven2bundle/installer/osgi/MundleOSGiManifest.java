@@ -1,5 +1,6 @@
 package com.orange.maven2bundle.installer.osgi;
 
+import java.io.File;
 import java.util.jar.Manifest;
 
 import org.sonatype.aether.artifact.Artifact;
@@ -7,6 +8,7 @@ import org.sonatype.aether.artifact.Artifact;
 public class MundleOSGiManifest extends OSGiManifest {
 
 	private Artifact artifact;
+	private File artifactFile;
 	private boolean hasBeenGenerated;
 
 	public MundleOSGiManifest(Manifest manifest, boolean hasBeenGenerated) {
@@ -15,8 +17,9 @@ public class MundleOSGiManifest extends OSGiManifest {
 	}
 
 	// FIXME should be in the constructor
-	public void setArtifact(Artifact artifact) {
-		this.artifact= artifact;
+	public void setArtifact(Artifact artifact, File artifactFile) {
+		this.artifact = artifact;
+		this.artifactFile = artifactFile;
 		this.getManifest().getMainAttributes().putValue("Bundle-SymbolicName", artifact.getArtifactId()+"-"+artifact.getBaseVersion());
 	}
 	
@@ -26,6 +29,10 @@ public class MundleOSGiManifest extends OSGiManifest {
 	
 	public Artifact getArtifact(){
 		return this.artifact;
+	}
+	
+	public File getArtifactFile(){
+		return this.artifactFile;
 	}
 	
 	public boolean hasBeenGenerated(){

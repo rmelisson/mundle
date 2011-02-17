@@ -20,6 +20,7 @@ import com.orange.maven2bundle.installer.exception.BndException;
 
 public class OSGiFacilities {
 	
+	public static String artifactDirectory = "lib";
 	private BundleContext bundleContext; 
 	private ArrayList<String> registredExports;
 	
@@ -94,7 +95,8 @@ public class OSGiFacilities {
 			    }
 			    
 			    // we also put the File path as a bundle-classpath  
-			    manifest.getMainAttributes().putValue("Bundle-Classpath", file.getAbsolutePath());
+			    manifest.getMainAttributes().putValue("Bundle-ClassPath", 
+			    		this.getInsideLibPath(file.getName()));
 			    
 				return new MundleOSGiManifest(manifest, true);
 			} catch (Exception e){
@@ -104,6 +106,10 @@ public class OSGiFacilities {
 	}
 
 	public void deployMundle(File bundleFile) throws BundleException, IOException {
+		System.out.println(bundleFile.getName());
+		if (bundleFile.getName().equals("frascati-util-1.4-SNAPSHOT.jar")){
+			System.out.println("here");
+		}
 		String path = bundleFile.toURI().toString();
 		Bundle bundle = this.bundleContext.installBundle(path);
 		bundle.start();
@@ -120,6 +126,13 @@ public class OSGiFacilities {
 		}
 		return false;
 //		return registredExports.contains(neededPackage);
+	}
+	
+	public String getInsideLibPath(String libName){
+		return File.separator +
+			OSGiFacilities.artifactDirectory + 
+			File.separator + 
+			libName;
 	}
 
 }

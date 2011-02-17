@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import org.junit.After;
 import org.junit.Test;
@@ -52,14 +53,22 @@ public class FraSCAtiTest {
 			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/fcftoo/fcftoo.jar"));
 			installService.installMavenArtifactAsBundle("org.ow2.frascati:frascati-sca-parser:1.4-SNAPSHOT");
 			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/fa/fa.jar"));
-			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/fact/fact.jar"));
-//			installService.installMavenArtifactAsBundle("com.orange:frascati-activator:0.0.1.SNAPSHOT");
+//			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/fact/fact.jar"));
+//			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-activator/target/frascati-activator-0.0.1.SNAPSHOT.jar"));
 //			installService.installMavenArtifactAsBundle("org.ow2.frascati:frascati-assembly-factory:1.4-SNAPSHOT");
+			installService.installMavenArtifactAsBundle("com.orange:frascati-activator:0.0.1.SNAPSHOT");
 			
 		/*	DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
 			deployer.installNode(rootNode);
 			System.out.println(rootNode.getDependencies().size());*/
 			for (Bundle b : bundleContext.getBundles()){
+//				if (b.getSymbolicName().equals("frascati-util-1.4-SNAPSHOT")){
+				if (b.getSymbolicName().equals("frascati-assembly-factory-1.4-SNAPSHOT")){
+					System.out.println(b.getHeaders().get("Export-Package").toString());
+//					URL r = b.getResource("org.ow2.frascati.util.AbstractFractalLoggeable");
+					URL r = b.getResource("org.ow2.frascati.FraSCAti");
+					System.out.println(r.toString());
+				}
 				System.out.println(b.getSymbolicName());
 			}
 			//assertTrue(rootNode.getDependencies().size() == 6);

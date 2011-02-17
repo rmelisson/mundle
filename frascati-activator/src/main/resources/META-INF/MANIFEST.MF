@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Export-Package: com.orange.maven2bundle.frascati;uses:="org.osgi.frame
+ work,org.ow2.frascati"
+Built-By: remi
+Tool: Bnd-1.15.0
+Bundle-Name: Unnamed - com.orange:frascati-activator:bundle:0.0.1.SNAP
+ SHOT
+Created-By: Apache Maven Bundle Plugin
+Bundle-Version: 0.0.1.SNAPSHOT
+Build-Jdk: 1.6.0_22
+Bnd-LastModified: 1297961485447
+Bundle-ManifestVersion: 2
+Bundle-Activator: com.orange.maven2bundle.frascati.Activator
+Import-Package: org.osgi.framework,org.ow2.frascati
+Bundle-SymbolicName: com.orange.frascati-activator
+Bundle-ClassPath: lib/frascati-activator-0.0.1.SNAPSHOT.jar

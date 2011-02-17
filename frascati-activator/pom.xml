@@ -21,5 +21,32 @@
 		<version>3.0.0</version>
 	</dependency>
   </dependencies>
+
+	<build>
+		<plugins>
+			<!--<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Activator>com.orange.maven2bundle.frascati.Activator</Bundle-Activator>
+					</instructions>
+				</configuration>
+			</plugin>
+				-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+	</build>
+  
   
 </project>
