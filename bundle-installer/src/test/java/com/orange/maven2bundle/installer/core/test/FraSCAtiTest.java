@@ -4,18 +4,21 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import org.junit.After;
 import org.junit.Test;
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 
+import com.orange.maven2bundle.installer.core.DependencyNode;
 import com.orange.maven2bundle.installer.core.Deployer;
 import com.orange.maven2bundle.installer.core.Resolver;
 import com.orange.maven2bundle.installer.exception.ArtifactInstallationException;
+import com.orange.maven2bundle.installer.exception.BndException;
+import com.orange.maven2bundle.installer.exception.DependencyNodeException;
+import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableException;
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
+import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
 import com.orange.maven2bundle.installer.service.InstallService;
 import com.orange.maven2bundle.installer.service.InstallServiceImpl;
@@ -26,13 +29,15 @@ public class FraSCAtiTest {
 	private OSGiFacilities oSGiFacilities;
 	private InstallService installService;
 	private BundleContext bundleContext;
+	private Resolver resolver;
+	private Deployer deployer;
 	
 	public FraSCAtiTest() throws BundleException{
 		this.bundleContext = Resources.initBundleTestingContext();
 		MavenFacilities mavenFacilities = new MavenFacilities(Resources.testingRepositoryRootPath);;
 		oSGiFacilities = new OSGiFacilities(this.bundleContext);
-		Resolver resolver = new Resolver(mavenFacilities, oSGiFacilities);
-		Deployer deployer = new Deployer(oSGiFacilities);
+		this.resolver = new Resolver(mavenFacilities, oSGiFacilities);
+		this.deployer = new Deployer(oSGiFacilities);
 		installService = new InstallServiceImpl(resolver, deployer);
 	}
 	
@@ -51,13 +56,14 @@ public class FraSCAtiTest {
 			installService.installMavenArtifactAsBundle("org.eclipse.stp.sca.introspection:sca-model-introspection:2.0.1.2");
 			installService.installMavenArtifactAsBundle("org.ow2.frascati:frascati-component-factory:1.4-SNAPSHOT");
 			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/fcftoo/fcftoo.jar"));
-			installService.installMavenArtifactAsBundle("org.ow2.frascati:frascati-sca-parser:1.4-SNAPSHOT");
-			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/fa/fa.jar"));
+//			installService.installMavenArtifactAsBundle("org.ow2.frascati:frascati-sca-parser:1.4-SNAPSHOT");
+//			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/fa/fa.jar"));
+//			oSGiFacilities.deployMundle(new File("/tmp/af.jar"));
+			deployCustomAssemblyFactory();
 //			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/fact/fact.jar"));
 //			oSGiFacilities.deployMundle(new File("/home/remi/dev/osgi/workspace/maven2bundle/frascati-activator/target/frascati-activator-0.0.1.SNAPSHOT.jar"));
 //			installService.installMavenArtifactAsBundle("org.ow2.frascati:frascati-assembly-factory:1.4-SNAPSHOT");
 			installService.installMavenArtifactAsBundle("com.orange:frascati-activator:0.0.1.SNAPSHOT");
-			
 		/*	DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
 			deployer.installNode(rootNode);
 			System.out.println(rootNode.getDependencies().size());*/
@@ -81,7 +87,23 @@ public class FraSCAtiTest {
 		} catch (ArtifactInstallationException e) {
 			e.printStackTrace();
 			fail();
+		} catch (MavenArtifactUnavailableException e) {
+			e.printStackTrace();
+			fail();
+		} catch (BndException e) {
+			e.printStackTrace();
+			fail();
+		} catch (DependencyNodeException e) {
+			e.printStackTrace();
+			fail();
 		}
+	}
+
+	private void deployCustomAssemblyFactory() throws ArtifactInstallationException, BundleException, IOException, MavenArtifactUnavailableException, BndException, DependencyNodeException {
+		MundleOSGiManifest rootManifest = resolver.createRootManifest("org.ow2.frascati:frascati-assembly-factory:1.4-SNAPSHOT");
+		rootManifest.getManifest().getMainAttributes().putValue("Export-Package", "org.ow2.frascati");
+		DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
+		deployer.installNode(rootNode);
 	}
 	
 //	

@@ -5,7 +5,6 @@ import com.orange.maven2bundle.installer.core.Deployer;
 import com.orange.maven2bundle.installer.core.Resolver;
 import com.orange.maven2bundle.installer.exception.ArtifactInstallationException;
 import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
-import com.orange.maven2bundle.installer.test.Resources;
 
 public class InstallServiceImpl implements InstallService {
 		
