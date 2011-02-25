@@ -51,6 +51,10 @@ public class Resolver {
 		DependencyNode root = new DependencyNode(rootManifest);
 		// for every import package dependency
 		for (String importPackage : rootManifest.getImportPackages()) {
+			
+			if (importPackage.equals("org.ow2.frascati.component.factory.api")){
+				System.out.println("here");
+			}
 
 			// if we cannot find it into the OSGi environnement
 			// or into the already resolved (but not already deployed) exports,
@@ -61,6 +65,7 @@ public class Resolver {
 					|| shouldBeIgnored(importPackage)) {
 				continue;
 			} else {
+				
 				if (mundleOSGiManifestList == null) {
 					mundleOSGiManifestList = constructOSGiManifestOfMavenDependencies(rootManifest.getArtifact());					
 				}
@@ -70,7 +75,7 @@ public class Resolver {
 					MundleOSGiManifest dependencyManifest = getExporter(mundleOSGiManifestList, importPackage);
 					// and of course, recursively...
 					DependencyNode node	= resolveDependencyTree(dependencyManifest);
-
+					
 					root.append(node);
 				}
 				catch (UnresolvedDependencyException e){

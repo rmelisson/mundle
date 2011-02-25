@@ -15,6 +15,7 @@ public class ServicesFactory {
 	private Resolver resolver;
 	private Deployer deployer;
 
+	// TODO refactor it to a standard Factory
 	public ServicesFactory(String mavenLocalRepositoryLocation, BundleContext bundleContext){
 		//this.bundleContext = bundleContext;
 		MavenFacilities mavenFacilities = new MavenFacilities(mavenLocalRepositoryLocation);

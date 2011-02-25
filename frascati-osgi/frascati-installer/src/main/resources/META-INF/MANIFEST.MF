@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Built-By: remi
+Tool: Bnd-1.15.0
+Bundle-Name: frascati-installer:bundle:0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Bundle-Version: 0.0.1.SNAPSHOT
+Build-Jdk: 1.6.0_22
+Bnd-LastModified: 1297961485447
+Bundle-ManifestVersion: 2
+Bundle-Activator: com.orange.maven2bundle.frascati.installer.Activator
+Import-Package: org.osgi.framework,com.orange.maven2bundle.installer.service
+Bundle-SymbolicName: com.orange.frascati-installer
+Bundle-ClassPath: lib/frascati-installer-0.0.1.SNAPSHOT.jar

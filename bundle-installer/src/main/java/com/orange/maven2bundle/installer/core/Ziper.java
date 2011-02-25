@@ -42,61 +42,6 @@ public class Ziper {
 	}
 
 	/**
-	 * Unpacks a zip file to the target directory.
-	 * 
-	 * @param zipFile
-	 * @param destDir
-	 * @throws IOException
-	 */
-/*	public static void unzip(File zipFile, File destDir) throws IOException {
-		ZipFile zip = new ZipFile(zipFile);
-
-		try {
-			Enumeration<? extends ZipEntry> en = zip.entries();
-			int bufSize = 8 * 1024;
-
-			while (en.hasMoreElements()) {
-				ZipEntry entry = en.nextElement();
-				File file = (destDir != null) ? new File(destDir,
-						entry.getName()) : new File(entry.getName());
-
-				if (entry.isDirectory()) {
-					if (!file.mkdirs()) {
-						throw new IOException("Error creating directory: "
-								+ file);
-					}
-				} else {
-					File parent = file.getParentFile();
-					if (parent != null && !parent.exists()) {
-						if (!parent.mkdirs()) {
-							throw new IOException("Error creating directory: "
-									+ parent);
-						}
-					}
-
-					InputStream in = zip.getInputStream(entry);
-					try {
-						OutputStream out = new BufferedOutputStream(
-								new FileOutputStream(file), bufSize);
-
-						try {
-							Util.copyPipe(in, out, bufSize);
-						} finally {
-							out.close();
-						}
-
-					} finally {
-						in.close();
-					}
-				}
-			}
-		} finally {
-			zip.close();
-		}
-	}
-	*/
-
-	/**
 	 * Recursively zips a set of root entries into a zipfile, compressing the
 	 * contents.
 	 * 

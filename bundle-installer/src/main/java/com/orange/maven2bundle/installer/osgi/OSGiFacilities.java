@@ -106,10 +106,6 @@ public class OSGiFacilities {
 	}
 
 	public void deployMundle(File bundleFile) throws BundleException, IOException {
-		System.out.println(bundleFile.getName());
-		if (bundleFile.getName().equals("frascati-util-1.4-SNAPSHOT.jar")){
-			System.out.println("here");
-		}
 		String path = bundleFile.toURI().toString();
 		Bundle bundle = this.bundleContext.installBundle(path);
 		bundle.start();

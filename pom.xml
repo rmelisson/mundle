@@ -8,7 +8,6 @@
 	<modules>
 		<module>artifact-examples</module>
 		<module>bundle-installer</module>
-		<module>frascati-activator</module>
 	</modules>
 
 	<build>

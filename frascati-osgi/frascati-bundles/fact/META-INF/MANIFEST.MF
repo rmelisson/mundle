@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Export-Package: com.orange.maven2bundle.frascati;uses:="org.osgi.frame
+ work,org.ow2.frascati"
+Bundle-ClassPath: /home/remi/.m2/repository/com/orange/frascati-activa
+ tor/0.0.1.SNAPSHOT/frascati-activator-0.0.1.SNAPSHOT.jar
+Bundle-Activator: com.orange.maven2bundle.frascati.Activator  
+Built-By: remi
+Tool: Bnd-1.15.0
+Bundle-Name: bundle-installer
+Created-By: 1.6.0_22 (Sun Microsystems Inc.)
+Bundle-Version: 0
+Build-Jdk: 1.6.0_22
+Bnd-LastModified: 1297876804466
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: frascati-activator-0.0.1.SNAPSHOT
+Import-Package: org.osgi.framework,org.ow2.frascati
+Originally-Created-By: Apache Maven
+Archiver-Version: Plexus Archiver
+

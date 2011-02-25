@@ -52,9 +52,6 @@ public class Deployer {
 		String jarPath = (System.getProperty("java.io.tmpdir"))
 		+ File.separator  + manifest.getSymbolicName() + ".jar";
 		
-		//File jar = createJar(jarPath, manifestFile, libFile);
-//		createJar2(jarPath, manifest.getSymbolicName() + ".jar");
-
 		File [] files = {manifestFile, libFile};
 		File jarFile = new File(jarPath);
 		Ziper.zip(jarFile, new File(dirPath), files, File.separatorChar);
@@ -111,7 +108,7 @@ public class Deployer {
 		}
 	}
 	
-	int BUFFER = 1024;
+	private static int BUFFER = 1024;
 	
 	public void createJar2(String jarPath, String fileName) throws FileNotFoundException{
 	      try {

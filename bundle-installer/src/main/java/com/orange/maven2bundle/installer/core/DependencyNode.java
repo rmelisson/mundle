@@ -6,7 +6,7 @@ import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 
 public class DependencyNode {
 
-	MundleOSGiManifest manifest;
+	private MundleOSGiManifest manifest;
 	private ArrayList<DependencyNode> dependencies;
 	
 	public DependencyNode(MundleOSGiManifest manifest){
