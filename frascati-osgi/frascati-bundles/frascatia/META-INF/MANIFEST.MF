@@ -5,8 +5,14 @@ Import-Package: org.osgi.framework,
  javax.xml.namespace,
  org.eclipse.emf.common.util,
  org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.impl,
  org.eclipse.emf.ecore.util,
- org.eclipse.emf.ecore.resource
+ org.eclipse.emf.ecore.resource,
+ org.eclipse.emf.ecore.resource.impl,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.emf.ecore.xml.type,
+ org.eclipse.emf.ecore.xmi.impl,
+ org.eclipse.core.runtime
 Built-By: remi
 Tool: Bnd-1.15.0
 Bundle-Name: frascati-all:bundle:0.0.1.SNAPSHOT
