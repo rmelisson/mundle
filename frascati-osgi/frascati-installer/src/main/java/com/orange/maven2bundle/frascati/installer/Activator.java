@@ -10,6 +10,7 @@ public class Activator implements BundleActivator {
 
 	// FIXME Should not be here
 	public static String FraSCAtiActivatorCoords = "com.orange:frascati-activator:jar:0.0.1.SNAPSHOT";
+	public static String FraSCAtiTinfiMembOO = "org.ow2.frascati.tinfi:frascati-tinfi-runtime-membranes-oo:1.4.3-SNAPSHOT";
 	public static String FraSCAtiAssemblyFactoryCoords = "org.ow2.frascati:frascati-assembly-factory:1.4-SNAPSHOT";
 	
 	public void start(BundleContext bundleContext) throws Exception {
@@ -18,7 +19,8 @@ public class Activator implements BundleActivator {
 		InstallService installService = (InstallService) bundleContext.getService(installServiceReference);
 		
 		// and try to use it in order to launch the FraSCAti activator
-		installService.installMavenArtifactAsBundle(FraSCAtiAssemblyFactoryCoords);
+//		installService.installMavenArtifactAsBundle(FraSCAtiTinfiMembOO);
+//		installService.installMavenArtifactAsBundle(FraSCAtiAssemblyFactoryCoords);
 		installService.installMavenArtifactAsBundle(FraSCAtiActivatorCoords);
 
 		// then, job is done and we can unget the service reference

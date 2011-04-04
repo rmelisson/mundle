@@ -55,6 +55,14 @@ public class FraSCAtiInstallerT {
 			String eclipsePath = "file:///home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/frascati-bundles/eclipse/eclipse.jar";
 			bundleContext.installBundle(eclipsePath).start();
 			
+			// and juliac runtime (problem with DynamicImport-Package, because a lot is now contained into tinfi runtime membrane oo)
+//			String juliacR = "file:///home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/frascati-bundles/juliacr/juliacr.jar";
+//			bundleContext.installBundle(juliacR).start();
+
+			// FraSCAti all, quand y'en a marre...
+			String frascatiA = "file:///home/remi/dev/osgi/workspace/maven2bundle/frascati-osgi/frascati-bundles/frascatia/frascatia.jar";
+			bundleContext.installBundle(frascatiA).start();
+			
 			// then we try to deploy the FraSCAti installer
 			MavenFacilities mF = new MavenFacilities("/home/remi/.m2/repository");
 			String fIPath = mF.getMavenArtifactFile("com.orange:frascati-installer:0.0.1.SNAPSHOT").toURI().toString();
@@ -66,7 +74,6 @@ public class FraSCAtiInstallerT {
 			for (Bundle bundle : bundleContext.getBundles()){
 				System.out.println(bundle.getSymbolicName());
 			}
-		
 	}
 	
 }

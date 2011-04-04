@@ -8,12 +8,11 @@ Export-Package: org.eclipse.core.resources,org.eclipse.core.runtime,or
  .util,org.eclipse.emf.ecore.xml.type,org.eclipse.emf.ecore.xml.type.u
  til,org.eclipse.osgi.util,org.eclipse.emf.common.util
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: /home/remi/.m2/repository/org/eclipse/equinox/common
- /3.4.0/common-3.4.0.jar,/home/remi/.m2/repository/org/eclipse/equinox
- /common/3.4.0/common-3.4.0.jar,/home/remi/.m2/repository/org/eclipse/
- emf/common/2.4.0/common-2.4.0.jar,/home/remi/.m2/repository/org/eclip
- se/emf/ecore/2.4.0/ecore-2.4.0.jar,/home/remi/.m2/repository/org/ecli
- pse/emf/ecore/xmi/2.4.0/xmi-2.4.0.jar
+Bundle-ClassPath: lib/common-2.4.0.jar,
+ lib/common-3.4.0.jar,
+ lib/ecore-2.4.0.jar,
+ lib/runtime-3.4.0.jar,
+ lib/xmi-2.4.0.jar
 Tool: Bnd-1.15.0
 Bundle-Localization: plugin
 Bundle-Name: eclipse
