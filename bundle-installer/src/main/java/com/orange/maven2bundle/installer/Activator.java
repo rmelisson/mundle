@@ -10,12 +10,13 @@ import com.orange.maven2bundle.installer.service.ServicesFactory;
 
 public class Activator implements BundleActivator {
 
-	// FIXME should not be defined here
-	public static String mavenRepositoryLocation = "/home/remi/.m2/repository/";
+	public InstallService installService;
 	
-	public void start(BundleContext bundleContext) {
-		ServicesFactory servicesFactory = new ServicesFactory(mavenRepositoryLocation, bundleContext);
-		InstallService installService = servicesFactory.initInstallService();
+	public void start(BundleContext bundleContext) throws Exception {
+		String mavenRepositoryLocation = Resources.getLocalRepositoryLocation();
+		
+		ServicesFactory servicesFactory = new ServicesFactory(mavenRepositoryLocation , bundleContext);
+		installService = servicesFactory.initInstallService();
 		
 		// we deploy the install service as an OSGi service
 		bundleContext.registerService(InstallService.class.getName(), installService, new Properties());
@@ -23,7 +24,7 @@ public class Activator implements BundleActivator {
 	}
 
 	public void stop(BundleContext bundleContext) {
-
+		
 	}
 
 }

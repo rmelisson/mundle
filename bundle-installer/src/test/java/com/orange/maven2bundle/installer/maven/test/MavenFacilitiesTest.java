@@ -19,7 +19,7 @@ import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableExcep
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
 import com.orange.maven2bundle.installer.osgi.OSGiManifest;
-import com.orange.maven2bundle.installer.test.Resources;
+import com.orange.maven2bundle.installer.test.TResources;
 
 public class MavenFacilitiesTest {
 
@@ -27,7 +27,7 @@ public class MavenFacilitiesTest {
 	
 	@Before
 	public void initMavenFacilities() throws Exception {
-		mavenFacilities = new MavenFacilities(Resources.testingRepositoryRootPath);
+		mavenFacilities = new MavenFacilities(TResources.getLocalRepositoryLocation());
 	}
 	
 	/*
@@ -50,7 +50,7 @@ public class MavenFacilitiesTest {
 	
 	@Test
 	public void testGetDescriptorFromNotInstalledArtifact(){
-		assertFalse(mavenFacilities.isAvailable(Resources.imaginaryArtifactCoordinates));			
+		assertFalse(mavenFacilities.isAvailable(TResources.imaginaryArtifactCoordinates));			
 	}
 	
 	@Test
@@ -58,11 +58,11 @@ public class MavenFacilitiesTest {
 		// we also measure time in order to assert that it has been mapped
 		
 		Date start = new Date();
-		assertTrue(mavenFacilities.isAvailable(Resources.DefaultArtifactCoordinates));
+		assertTrue(mavenFacilities.isAvailable(TResources.DefaultArtifactCoordinates));
 		long timeFirstCall = (new Date()).getTime() - start.getTime();
 
 		start = new Date();
-		assertTrue(mavenFacilities.isAvailable(Resources.DefaultArtifactCoordinates));
+		assertTrue(mavenFacilities.isAvailable(TResources.DefaultArtifactCoordinates));
 		long timeSecondCall = (new Date()).getTime() - start.getTime();
 		assertTrue(timeSecondCall < timeFirstCall);
 	}
@@ -70,7 +70,7 @@ public class MavenFacilitiesTest {
 	@Test
 	public void testExistingJarFile(){
 		try {
-			mavenFacilities.getMavenArtifactFile(Resources.DefaultArtifactCoordinates);
+			mavenFacilities.getMavenArtifactFile(TResources.DefaultArtifactCoordinates);
 		} catch (MavenArtifactUnavailableException e) {
 			fail();
 		}
@@ -79,12 +79,12 @@ public class MavenFacilitiesTest {
 	@Test
 	public void testGetterForNonExisting(){
 		try {
-			mavenFacilities.getMavenArtifactFile(Resources.imaginaryArtifactCoordinates);
+			mavenFacilities.getMavenArtifactFile(TResources.imaginaryArtifactCoordinates);
 			fail();
 		} catch (MavenArtifactUnavailableException e) {}
 		
 		try {
-			mavenFacilities.getDependencies(Resources.imaginaryArtifactCoordinates);
+			mavenFacilities.getDependencies(TResources.imaginaryArtifactCoordinates);
 			fail();
 		} catch (MavenArtifactUnavailableException e) {}
 		
@@ -93,7 +93,7 @@ public class MavenFacilitiesTest {
 	@Test
 	public void testDependencies(){
 		try {
-			List<Dependency> deps = mavenFacilities.getDependencies(Resources.DefaultArtifactCoordinates);
+			List<Dependency> deps = mavenFacilities.getDependencies(TResources.DefaultArtifactCoordinates);
 			assertTrue(deps.size() > 0);
 		} catch (MavenArtifactUnavailableException e) {
 			fail();

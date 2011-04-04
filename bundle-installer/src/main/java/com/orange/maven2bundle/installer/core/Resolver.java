@@ -52,10 +52,6 @@ public class Resolver {
 		// for every import package dependency
 		for (String importPackage : rootManifest.getImportPackages()) {
 			
-			if (importPackage.equals("org.ow2.frascati.component.factory.api")){
-				System.out.println("here");
-			}
-
 			// if we cannot find it into the OSGi environnement
 			// or into the already resolved (but not already deployed) exports,
 			// it means that it should possible to find this import in one of
@@ -93,6 +89,21 @@ public class Resolver {
 		}
 
 		return root;
+	}
+	
+	// FIXME
+	public void initInProgress(MundleOSGiManifest manifest){
+		for (String pack : manifest.getExportPackages()){
+			int i = pack.indexOf(";");
+			if (i > 0){
+				pack = pack.substring(0, i);
+			}
+			System.out.println(pack);
+			inProgressExportedPackage.add(pack);
+		}
+		
+		//FIXME shouldn't be here, but we have to update OSGi exported packages before computation
+		oSGIFacilities.updateAvailablePackage();
 	}
 	
 	//FIXME create a configuration file for ignored packages

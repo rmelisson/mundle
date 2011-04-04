@@ -20,6 +20,7 @@ public class InstallServiceImpl implements InstallService {
 			throws ArtifactInstallationException {
 		try {
 			MundleOSGiManifest rootManifest = resolver.createRootManifest(artifactCoordinates);
+			resolver.initInProgress(rootManifest);
 			DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
 			deployer.installNode(rootNode);
 			

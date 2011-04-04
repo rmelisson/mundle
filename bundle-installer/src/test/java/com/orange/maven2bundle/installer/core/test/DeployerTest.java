@@ -16,7 +16,7 @@ import com.orange.maven2bundle.installer.maven.MavenFacilities;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
 import com.orange.maven2bundle.installer.service.InstallService;
 import com.orange.maven2bundle.installer.service.InstallServiceImpl;
-import com.orange.maven2bundle.installer.test.Resources;
+import com.orange.maven2bundle.installer.test.TResources;
 
 public class DeployerTest {
 	
@@ -25,8 +25,8 @@ public class DeployerTest {
 	private BundleContext bundleContext;
 	
 	public DeployerTest() throws BundleException{
-		this.bundleContext = Resources.initBundleTestingContext();
-		MavenFacilities mavenFacilities = new MavenFacilities(Resources.testingRepositoryRootPath);;
+		this.bundleContext = TResources.initBundleTestingContext();
+		MavenFacilities mavenFacilities = new MavenFacilities(TResources.getLocalRepositoryLocation());;
 		oSGiFacilities = new OSGiFacilities(this.bundleContext);
 		Resolver resolver = new Resolver(mavenFacilities, oSGiFacilities);
 		Deployer deployer = new Deployer(oSGiFacilities);
@@ -35,13 +35,13 @@ public class DeployerTest {
 	
 	@After
 	public void clean() throws BundleException, IOException {
-		Resources.cleanCache(bundleContext);
+		TResources.cleanCache(bundleContext);
 	}
 	
 	@Test
 	public void testDeploy() {
 		try {
-			installService.installMavenArtifactAsBundle(Resources.ArtifactWithActivatorManifestCoordinates);
+			installService.installMavenArtifactAsBundle(TResources.ArtifactWithActivatorManifestCoordinates);
 			assertTrue(bundleContext.getBundles().length == 5);
 		} catch (Exception e) {
 			e.printStackTrace();

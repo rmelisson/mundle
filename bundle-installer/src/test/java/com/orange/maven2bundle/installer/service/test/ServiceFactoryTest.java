@@ -7,7 +7,7 @@ import org.osgi.framework.BundleException;
 
 import com.orange.maven2bundle.installer.service.InstallService;
 import com.orange.maven2bundle.installer.service.ServicesFactory;
-import com.orange.maven2bundle.installer.test.Resources;
+import com.orange.maven2bundle.installer.test.TResources;
 
 public class ServiceFactoryTest extends TestCase {
 
@@ -15,8 +15,8 @@ public class ServiceFactoryTest extends TestCase {
 
 	public ServiceFactoryTest() throws BundleException{
 		servicesFactory = new ServicesFactory(
-				Resources.testingRepositoryRootPath, 
-				Resources.initBundleTestingContext());
+				TResources.getLocalRepositoryLocation(), 
+				TResources.initBundleTestingContext());
 	}
 	
 	@Test

@@ -20,7 +20,7 @@ import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableExcep
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
 import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
-import com.orange.maven2bundle.installer.test.Resources;
+import com.orange.maven2bundle.installer.test.TResources;
 
 public class ResolverTest {
 	
@@ -30,34 +30,34 @@ public class ResolverTest {
 	private BundleContext bundleContext;
 	
 	public ResolverTest() throws BundleException{
-		this.bundleContext = Resources.initBundleTestingContext();
-		this.mavenFacilities = new MavenFacilities(Resources.testingRepositoryRootPath);;
+		this.bundleContext = TResources.initBundleTestingContext();
+		this.mavenFacilities = new MavenFacilities(TResources.getLocalRepositoryLocation());;
 		this.oSGiFacilities = new OSGiFacilities(this.bundleContext);
 	}
 	
 	@Before
 	public void reinitResolver() throws BundleException, IOException{
-		Resources.cleanCache(bundleContext);
+		TResources.cleanCache(bundleContext);
 		this.resolver = new Resolver(mavenFacilities, oSGiFacilities);
 	}
 	
 	@Test
 	public void testInitRoot() throws MavenArtifactUnavailableException, IOException, BndException{
-		MundleOSGiManifest manifest = resolver.createRootManifest(Resources.DefaultArtifactCoordinates);
-		assertTrue(manifest.getArtifact().getGroupId().equals(Resources.GroupId));
+		MundleOSGiManifest manifest = resolver.createRootManifest(TResources.DefaultArtifactCoordinates);
+		assertTrue(manifest.getArtifact().getGroupId().equals(TResources.GroupId));
 		assertNotNull(manifest.getArtifactFile());
 	}
 	
 	@Test
 	public void testInitRootOSGiArtifact() throws MavenArtifactUnavailableException, IOException, BndException{
-		MundleOSGiManifest manifest = resolver.createRootManifest(Resources.ArtifactWithOSGiManifestCoordinates);
+		MundleOSGiManifest manifest = resolver.createRootManifest(TResources.ArtifactWithOSGiManifestCoordinates);
 		assertFalse(manifest.hasBeenGenerated());
 	}
 	
 	@Test
 	public void testResolveDefaultArtifact() throws IOException, BndException{
 		try {
-			MundleOSGiManifest rootManifest = resolver.createRootManifest(Resources.DefaultArtifactCoordinates);
+			MundleOSGiManifest rootManifest = resolver.createRootManifest(TResources.DefaultArtifactCoordinates);
 			assertNotNull(rootManifest);
 			DependencyNode rootNode = resolver.resolveDependencyTree(rootManifest);
 			assertTrue(rootNode.getDependencies().size() == 2);			

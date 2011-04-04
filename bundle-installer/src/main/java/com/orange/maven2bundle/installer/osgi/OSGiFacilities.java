@@ -26,10 +26,10 @@ public class OSGiFacilities {
 	
 	public OSGiFacilities(BundleContext bundleContext){
 		this.bundleContext = bundleContext;
-		initializeExportedPackageMap();
+		this.updateAvailablePackage();
 	}
 	
-	private void initializeExportedPackageMap() {
+	public void updateAvailablePackage(){
 		registredExports = new ArrayList<String>();
 		for (Bundle bundle : bundleContext.getBundles()){
 			registerExports(bundle);

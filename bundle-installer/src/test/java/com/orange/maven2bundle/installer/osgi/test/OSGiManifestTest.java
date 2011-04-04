@@ -15,7 +15,7 @@ import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableExcep
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
 import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
-import com.orange.maven2bundle.installer.test.Resources;
+import com.orange.maven2bundle.installer.test.TResources;
 
 public class OSGiManifestTest {
 
@@ -23,32 +23,32 @@ public class OSGiManifestTest {
 	private BundleContext bundleContext;
 
 	public OSGiManifestTest() throws BundleException{
-		manifestFacilities = new MavenFacilities(Resources.testingRepositoryRootPath);	
-		bundleContext = Resources.initBundleTestingContext();
+		manifestFacilities = new MavenFacilities(TResources.getLocalRepositoryLocation());	
+		bundleContext = TResources.initBundleTestingContext();
 	}
 	
 	@Test
 	public void testSimpleOSGiBundle() throws Exception{
-		File f = manifestFacilities.getMavenArtifactFile(Resources.ArtifactWithOSGiManifestCoordinates);
+		File f = manifestFacilities.getMavenArtifactFile(TResources.ArtifactWithOSGiManifestCoordinates);
 		
 		MundleOSGiManifest oM = (new OSGiFacilities(bundleContext)).getOSGiManifest(f);
 		
 		assertFalse(oM.hasBeenGenerated());
 		
-		assertTrue(oM.getImportPackages().size() == Resources.ArtifactWithOSGiManifestImportPackageNumber);
-		assertTrue(oM.getExportPackages().size()== Resources.ArtifactWithOSGiManifestExportPackageNumber);
+		assertTrue(oM.getImportPackages().size() == TResources.ArtifactWithOSGiManifestImportPackageNumber);
+		assertTrue(oM.getExportPackages().size()== TResources.ArtifactWithOSGiManifestExportPackageNumber);
 		
 	}
 	
 	@Test
 	public void testMumbleManifest() throws MavenArtifactUnavailableException, IOException, BndException {
-		File f = manifestFacilities.getMavenArtifactFile(Resources.DefaultArtifactCoordinates);
+		File f = manifestFacilities.getMavenArtifactFile(TResources.DefaultArtifactCoordinates);
 		
 		MundleOSGiManifest oM = (new OSGiFacilities(bundleContext)).getOSGiManifest(f);
 		
 		assertTrue(oM.hasBeenGenerated());
-		assertTrue(oM.getImportPackages().size() == Resources.DefaultArtifactImportPackageNumber);
-		assertTrue(oM.getExportPackages().size()== Resources.DefaultArtifactExportPackageNumber);
+		assertTrue(oM.getImportPackages().size() == TResources.DefaultArtifactImportPackageNumber);
+		assertTrue(oM.getExportPackages().size()== TResources.DefaultArtifactExportPackageNumber);
 	}
 	
 	//TODO add more cases

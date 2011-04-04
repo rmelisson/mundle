@@ -16,7 +16,7 @@ import com.orange.maven2bundle.installer.exception.MavenArtifactUnavailableExcep
 import com.orange.maven2bundle.installer.maven.MavenFacilities;
 import com.orange.maven2bundle.installer.osgi.MundleOSGiManifest;
 import com.orange.maven2bundle.installer.osgi.OSGiFacilities;
-import com.orange.maven2bundle.installer.test.Resources;
+import com.orange.maven2bundle.installer.test.TResources;
 
 public class OSGiFacilitiesTest {
 	
@@ -25,13 +25,13 @@ public class OSGiFacilitiesTest {
 	private BundleContext bundleContext;
 	
 	public OSGiFacilitiesTest() throws BundleException {
-		manifestFacilities = new MavenFacilities(Resources.testingRepositoryRootPath);	
-		bundleContext = Resources.initBundleTestingContext();
+		manifestFacilities = new MavenFacilities(TResources.getLocalRepositoryLocation());	
+		bundleContext = TResources.initBundleTestingContext();
 	}
 	
 	@Before
 	public void initOSGiFacilities() throws BundleException, IOException {
-		Resources.cleanCache(bundleContext);
+		TResources.cleanCache(bundleContext);
 		oSGiFacilities = new OSGiFacilities(bundleContext);
 	}
 	
@@ -39,12 +39,12 @@ public class OSGiFacilitiesTest {
 	public void testGetOSGiManifest() throws Exception {
 		
 		// Case of an artifact with no OSGi manifest
-		File f = manifestFacilities.getMavenArtifactFile(Resources.DefaultArtifactCoordinates);
+		File f = manifestFacilities.getMavenArtifactFile(TResources.DefaultArtifactCoordinates);
 		MundleOSGiManifest m = oSGiFacilities.getOSGiManifest(f);
 		assertTrue(m.hasBeenGenerated());
 		
 		// Case of an artifact with an OSGi manifest		
-		f = manifestFacilities.getMavenArtifactFile(Resources.ArtifactWithOSGiManifestCoordinates);
+		f = manifestFacilities.getMavenArtifactFile(TResources.ArtifactWithOSGiManifestCoordinates);
 		m = oSGiFacilities.getOSGiManifest(f);
 		assertFalse(m.hasBeenGenerated());
 		
@@ -54,17 +54,17 @@ public class OSGiFacilitiesTest {
 
 	@Test
 	public void testAvailablePackages(){
-		assertTrue(oSGiFacilities.isAvailable(Resources.shouldBeAvailablePackage));
-		assertFalse(oSGiFacilities.isAvailable(Resources.shouldNotBeAvailablePackage));
+		assertTrue(oSGiFacilities.isAvailable(TResources.shouldBeAvailablePackage));
+		assertFalse(oSGiFacilities.isAvailable(TResources.shouldNotBeAvailablePackage));
 	}
 	
 	@Test
 	public void testDeployMundle() throws MavenArtifactUnavailableException{
-		File file = manifestFacilities.getMavenArtifactFile(Resources.ArtifactWithOSGiManifestCoordinates);
+		File file = manifestFacilities.getMavenArtifactFile(TResources.ArtifactWithOSGiManifestCoordinates);
 		try {
 			oSGiFacilities.deployMundle(file);
 			assertTrue(bundleContext.getBundles().length > 1);
-			assertTrue(oSGiFacilities.isAvailable(Resources.ArtifactWithOSGiManifestExportPackage));
+			assertTrue(oSGiFacilities.isAvailable(TResources.ArtifactWithOSGiManifestExportPackage));
 		} catch (Exception e) {
 			fail();
 		}
